@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../api/api";
 
 export default function Login() {
@@ -12,7 +12,6 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
-      console.log(err);
       alert(err.response?.data?.message || "Login failed");
     }
   };
@@ -20,16 +19,24 @@ export default function Login() {
   return (
     <div>
       <h2>Login</h2>
+
       <input
         placeholder="Email"
         onChange={(e) => setForm({ ...form, email: e.target.value })}
       />
+
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setForm({ ...form, password: e.target.value })}
       />
+
       <button onClick={submit}>Login</button>
+
+      {/* 👇 Simple text + button */}
+      <p style={{ marginTop: "10px" }}>
+        New user? <Link to="/register">Register</Link>
+      </p>
     </div>
   );
 }
